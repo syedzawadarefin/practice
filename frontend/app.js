@@ -1,11 +1,17 @@
+const { response } = require("express");
+const { del } = require("express/lib/application");
+
 // Function to add a new study session
 function addStudySession(event) {
     event.preventDefault(); // Prevent form from submitting in the traditional way
+
 
     const subject = document.getElementById('subject').value;
     const date = document.getElementById('date').value;
     const duration = document.getElementById('duration').value;
     const notes = document.getElementById('notes').value;
+
+
 
     // Ensure all fields are filled out
     if (subject && date && duration) {
@@ -20,7 +26,7 @@ function addStudySession(event) {
         .then(response => response.json())
         .then(data => {
             console.log('Study session added:', data);
-            loadStudySessions(); // Reload the list of study sessions to include the new addition
+            loadStudySessions(); // Reload the list o   tudy sessions to include the new addition
             studyForm.reset(); // Clear the form fields
         })
         .catch(error => {
@@ -30,6 +36,19 @@ function addStudySession(event) {
         alert('Please fill in all required fields.');
     }
 }
+
+
+function deleteStudySession() {
+    const deleteMethod = {
+        method: 'DELETE',
+        headers: {
+            'Content-type': 'application/json'
+        },
+    }
+    fetch(`http://localhost:3001/api/study-sessions/${sessionId}`, deleteMethod)
+    .then(response => response.json())
+}
+
 
 // Function to load study sessions from the backend
 function loadStudySessions() {
@@ -45,14 +64,11 @@ function loadStudySessions() {
                     <p>Date: ${session.date}</p>
                     <p>Duration: ${session.duration} minutes</p>
                     <p>Notes: ${session.notes}</p>
-                    <button class="delete" data-id="${session.id}">Delete</button>
+                    <button class=delete>Delete</button>
                 `;
+                const button = studyItem.querySelector(".delete");
+                button.addEventListener("click", () => deleteStudySession(session.id))
                 studyList.appendChild(studyItem);
-            });
-
-            // Add event listeners to all delete buttons
-            document.querySelectorAll('.delete').forEach(button => {
-                button.addEventListener('click', deleteStudySession);
             });
         })
         .catch(error => {
@@ -60,26 +76,6 @@ function loadStudySessions() {
         });
 }
 
-// Function to delete a study session
-function deleteStudySession(event) {
-    const button = event.target;
-    const sessionId = button.getAttribute('data-id');
-
-    fetch(`http://localhost:3001/api/study-sessions/${sessionId}`, {
-        method: 'DELETE',
-    })
-    .then(response => {
-        if (response.ok) {
-            console.log(`Study session ${sessionId} deleted.`);
-            loadStudySessions(); // Reload the list after deletion
-        } else {
-            console.error(`Failed to delete session ${sessionId}`);
-        }
-    })
-    .catch(error => {
-        console.error('Error:', error);
-    });
-}
 
 // Event listeners
 document.addEventListener('DOMContentLoaded', () => {
