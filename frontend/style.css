@@ -1,0 +1,80 @@
+/* Basic styling for the Study Log App */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    min-height: 100vh; /* Allow content to grow beyond the viewport */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+
+.container {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 600px; /* Limit the width for larger screens */
+    margin-top: 20px; /* Add some space at the top */
+}
+
+
+h1, h2 {
+    text-align: center;
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+
+label {
+    margin-top: 10px;
+}
+
+
+input, textarea {
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: calc(100% - 18px); /* Ensure the inputs fit within the container */
+}
+
+
+button {
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+
+button:hover {
+    background-color: #45a049;
+}
+
+
+#studyList {
+    margin-top: 20px;
+}
+
+
+.study-item {
+    background-color: #f9f9f9;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+
